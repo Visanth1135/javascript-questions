@@ -47,6 +47,23 @@ print3.call(name2, 'kerala','kerala','india')//raju nairkeralakeralaindia
 print3.apply(name2,['kerala','kerala','india'])//raju nairkeralakeralaindia
 
 //difference between call and bind, bind gives you a copy of function and that can be call later
-let printname = print2.bind(name2,'kerala')
+let printname = print3.bind(name2,'kerala')
 console.log(printname)//console function print2
-printname()
+printname('trs','tts')//raju nairkeralatrstts
+
+//implemenattion of our own bind method
+Function.prototype.mybind=function(...args){
+  let obj = this
+  params = args.slice(1)
+  console.log(this)//console print3
+  console.log(args[1])
+  console.log(params)
+  return function(...args2){
+    console.log(args2)
+    obj.apply(args[0],[...params,...args2])
+  }
+}
+
+let print2name = print3.mybind(name2,'kerala')
+console.log(print2name)
+print2name('ker','ind')
